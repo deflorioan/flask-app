@@ -5,12 +5,14 @@ pipeline {
         PORT        = "5000:5000"
         IMAGE_NAME  = "deflorioan/flask-calculator"
         IMAGE_TAG   = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
+        CREDS       = credentials('dockerhub-deflorioan')
     }
     
     stages {
         stage('Checkout') {
             steps{
-                sh 'git clone https://github.com/deflorioan/flask-app'
+                sh "git clone https://github.com/deflorioan/flask-app"
+                sh "docker login -u ${CREDS_USR} -p ${CREDS_PSW}"
             }
         }
         stage('Testing') {
@@ -21,11 +23,10 @@ pipeline {
             }
         }
         stage('Build') {
-            echo '"Building the application..."'
-            dockerImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
-
-            withDockerRegistry([ credentialsId: "dockerhub-deflorioan", url: "" ]) {
-            dockerImage.push("${IMAGE_NAME}:${IMAGE_TAG}")
+            steps {
+                sh 'echo "Building the application..."'
+                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
             }
         }
         stage('Deploy') {
@@ -35,7 +36,6 @@ pipeline {
                 sh "docker run -dit --name ${APP_NAME} -p ${PORT} ${IMAGE_NAME}:${IMAGE_TAG}"   
             }
         }
- 
     }
    post {
         success {
