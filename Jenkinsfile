@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout') {
             steps{
                 sh "git clone https://github.com/deflorioan/flask-app"
-                sh 'docker login -u $CREDS_USR --password-stdin $CREDS_PSW'
+                sh 'echo $CREDS_PSW | docker login -u $CREDS_USR --password-stdin'
             }
         }
         stage('Testing') {
