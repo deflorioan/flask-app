@@ -3,7 +3,7 @@ pipeline {
     environment {
         APP_NAME    = "flask-application"
         PORT        = "5000:5000"
-        IMAGE_NAME  = "deflorioan/flask-calculator"
+        IMAGE_NAME  = "deflorioan/flask-app"
         IMAGE_TAG   = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
         CREDS       = credentials('dockerhub-deflorioan')
     }
