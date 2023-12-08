@@ -20,6 +20,7 @@ pipeline {
             steps {
                 sh 'echo "Building the application..."'
                 sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                sh 'echo $CREDS_PSW | docker login -u $CREDS_USR --password-stdin'
                 sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
             }
         }
