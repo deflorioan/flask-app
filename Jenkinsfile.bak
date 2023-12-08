@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'echo "Building the application..."'
+            }
+        }
+        stage('Test') {
+            parallel {
+                stage('Unit Tests') {
+                    steps {
+                        sh 'echo "Running unit tests..."'
+                    }
+                }
+                stage('Integration Tests') {
+                    steps {
+                        sh 'echo "Running integration tests..."'
+                    }
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'echo "Deploying the application..."'
+            }
+        }
+    }
+}
+
+  post {
+        success {
+            echo "Flask Application Up and running!!"
+        }
+        failure {
+            echo "Flask Application failed running!"
+        }
+}

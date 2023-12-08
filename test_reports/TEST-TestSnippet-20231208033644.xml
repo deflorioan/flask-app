@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<testsuite name="TestSnippet-20231208033644" tests="2" time="0.000" failures="0" errors="0">
+	<testcase classname="TestSnippet" name="test_check_posted_data_first_set" time="0.000"/>
+	<testcase classname="TestSnippet" name="test_check_posted_data_second_set" time="0.000"/>
+	<system-out><![CDATA[Testing function - check_posted_data Set 1
+Test data - [{'x': 184, 'y': 323}, 'add', 200]
+Test data - [{'x': 143, 'y': 0}, 'division', 302]
+Test data - [{'x': 142}, 'division', 301]
+Testing function - check_posted_data Set 2
+Test data - [{'x': 184, 'y': 323}, 'add', 200]
+Test data - [{'x': 143, 'y': 0}, 'division', 302]
+Test data - [{'y': 143}, 'division', 301]
+]]></system-out>
+	<system-err><![CDATA[]]></system-err>
+</testsuite>
