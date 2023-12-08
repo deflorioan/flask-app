@@ -9,7 +9,9 @@ pipeline {
     
     stages {
         stage('Checkout') {
-            git credentialsId: 'deflorioan', url: 'https://github.com/deflorioan/flask-app'
+            steps{
+                sh 'git clone https://github.com/deflorioan/flask-app'
+            }
         }
         stage('Testing') {
             steps{
